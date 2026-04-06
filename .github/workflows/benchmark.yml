@@ -1,0 +1,32 @@
+name: Benchmark
+
+on:
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Prepare
+        run: /bin/bash prepare.sh
+
+      - name: Run benchmarks
+        run: /bin/bash benchmark/all.sh
+
+      - name: Cleanup
+        run: /bin/bash .github/cleanup.sh
+
+      - name: Print summary
+        run: cat benchmark/summary.log
