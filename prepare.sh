@@ -6,16 +6,31 @@ tar_trimmed() {
     local output
     local lines
     local count
+    # Disable xtrace for the trimming logic to avoid printing the entire output
+    local xtrace_on=0
+    if [[ $- == *x* ]]; then
+        xtrace_on=1
+        set +x
+    fi
+
     output=$("$@" 2>&1)
     local exit_code=$?
-    lines=$(echo "$output" | wc -l | tr -d ' ')
+    
+    # We use a here-string to avoid SIGPIPE in some shells, 
+    # though bash here-strings still use pipes/temp files.
+    # More importantly, we count lines without echoing the whole thing to a pipe if possible.
+    lines=$(grep -c '' <<< "$output")
     count=5
     if [ "$lines" -le $((count * 2)) ]; then
-        echo "$output"
+        printf "%s\n" "$output"
     else
-        echo "$output" | head -n "$count"
+        head -n "$count" <<< "$output"
         echo "... ($(( lines - count * 2 )) lines omitted) ..."
-        echo "$output" | tail -n "$count"
+        tail -n "$count" <<< "$output"
+    fi
+
+    if [ "$xtrace_on" -eq 1 ]; then
+        set -x
     fi
     return $exit_code
 }
