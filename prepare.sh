@@ -20,7 +20,7 @@ tar_trimmed() {
     # though bash here-strings still use pipes/temp files.
     # More importantly, we count lines without echoing the whole thing to a pipe if possible.
     lines=$(grep -c '' <<< "$output")
-    count=5
+    count=30
     if [ "$lines" -le $((count * 2)) ]; then
         printf "%s\n" "$output"
     else
