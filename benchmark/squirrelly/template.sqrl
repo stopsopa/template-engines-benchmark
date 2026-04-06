@@ -1,0 +1,7 @@
+{{it.v1}} {{it.v2}} {{it.v3}} {{it.v4}} {{it.v5}} {{it.v6}}
+{{it.r1|safe}} {{it.r2|safe}} {{it.r3|safe}} {{it.r4|safe}} {{it.r5|safe}} {{it.r6|safe}}
+
+{{@each(it.loopSix) => none}}  
+{{@each(it.items) => val, index}}    Item: {{val|safe}}
+  
+{{/each}}{{/each}}

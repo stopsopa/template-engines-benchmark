@@ -1,0 +1,7 @@
+<%- d.v1 %> <%- d.v2 %> <%- d.v3 %> <%- d.v4 %> <%- d.v5 %> <%- d.v6 %>
+<%= d.r1 %> <%= d.r2 %> <%= d.r3 %> <%= d.r4 %> <%= d.r5 %> <%= d.r6 %>
+<% for (var k = 0; k < 6; k++) { %>
+  <% d.items.forEach(function(item) { %>
+    Item: <%- item %>
+  <% }) %>
+<% } %>

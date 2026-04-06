@@ -1,0 +1,36 @@
+{
+  "type": "module",
+  "dependencies": {
+    "blueimp-tmpl": "^3.20.0",
+    "dot": "^1.1.3",
+    "edge.js": "^6.5.0",
+    "ejs": "^5.0.1",
+    "es-toolkit": "^1.45.1",
+    "eta": "^4.5.1",
+    "express": "^5.2.1",
+    "hbs": "^4.2.1",
+    "htmx-ext-preload": "^2.1.2",
+    "htmx.org": "2.0.8",
+    "lodash": "^4.18.1",
+    "morphdom": "^2.7.8",
+    "mustache": "^4.2.0",
+    "nunjucks": "^3.2.4",
+    "radash": "^12.1.1",
+    "serve-index": "^1.9.2",
+    "squirrelly": "^9.1.0",
+    "thunder": "^0.2.0",
+    "typed-html": "^3.0.1",
+    "typetify": "^4.4.1",
+    "underscore": "^1.13.8",
+    "zare": "^3.4.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.24",
+    "@types/mustache": "^4.2.6",
+    "@types/node": "^22.13.9",
+    "@types/nunjucks": "^3.2.6",
+    "esbuild": "^0.28.0",
+    "typescript": "^5.8.2"
+  }
+}
