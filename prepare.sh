@@ -23,6 +23,7 @@ tar_trimmed() {
 if [ -d lodash ]; then
     echo "${0}: lodash is already extracted"
 else
+    set -x
     echo "${0}: extracting lodash"
     cd node_modules
     tar_trimmed tar -zcvf lodash.tar.gz lodash
@@ -30,6 +31,7 @@ else
     cd ..
     tar_trimmed tar -zxvf lodash.tar.gz
     rm -rf lodash.tar.gz
+    set +x
 fi
 
 ls -la
