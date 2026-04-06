@@ -24,7 +24,6 @@ ENGINES=(
   "underscore"
   "radash"
   "eta"
-  "typetify"
   "es-toolkit"
   "thunder"
   "ejs"
