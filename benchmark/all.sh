@@ -8,13 +8,15 @@ set -e
 CDIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$CDIR/.."
 
+CONCURRENT=${1:-2}
+
 export NODE_OPTIONS=""
 
 rm -rf benchmark/*/*.log
 
 /bin/bash buildTemplate.sh
 
-echo "Starting Benchmark Suite (1,000,000 iterations, 4 concurrently)..."
+echo "Starting Benchmark Suite (1,000,000 iterations, ${CONCURRENT} concurrently)..."
 
 # Define all the ENGINE directories
 ENGINES=(
@@ -22,21 +24,22 @@ ENGINES=(
   "underscore"
   "radash"
   "eta"
+  "typetify"
+  "es-toolkit"
+  "thunder"
+  "ejs"
+  "typed-html"
+  "hbs"
+  "mustache"
+  "edge"
+  "nunjucks"
+  "dot"
 )
+
   # "lodash"
-  # "typetify"
-  # "es-toolkit"
-  # "thunder"
-  # "ejs"
-  # "typed-html"
-  # "hbs"
-  # "mustache"
-  # "edge"
-  # "nunjucks"
-  # "dot"
 
 # Run them in parallel keeping up to 4 running at all times using xargs
-printf "%s\n" "${ENGINES[@]}" | xargs -n 1 -P 3 -I {} bash -c '
+printf "%s\n" "${ENGINES[@]}" | xargs -n 1 -P "${CONCURRENT}" -I {} bash -c '
   ENGINE="{}"
   echo "Started ${ENGINE}"
   node "benchmark/${ENGINE}/bench.ts" > "benchmark/${ENGINE}/bench.log"  
