@@ -1,84 +1,58 @@
 
-This is expermiment to find fastest simplest template engine
+This is an experiment to find the fastest and simplest template engine.
 
-see benchmark/summary.log for results
+See [summary.log](summary.log) for results.
 
-see benchmark/all.sh for how to run the benchmark
+See [all.sh](all.sh) for details on how to run the benchmark.
 
-# conclusion
+# Conclusion
 
-It seems specifying `variable` option in `_.template`
+It seems that specifying the `variable` option in `_.template`:
 
 ```js
-
 _.template('our template', {variable: 'data'})
-
 ```
 
-gives biggest performance gain from all things I've tried.
-
-
-
-
+gives the biggest performance gain of all the things I've tried.
 
 Doing:
 
 ```js
-
 _.template('our template')
-
-
 ```
 
-will cause our template compiler to fall into this if statement
+will cause the template compiler to enter this `if` statement:
 
 ```js
-
 if (!variable) {
     source = 'with (obj) {\n' + source + '\n}\n';
 }
-
 ```
 
->
 > [!NOTE]
-> Place in the code [https://github.com/stopsopa/template-engines-benchmark/blob/8239c5fd141810c995e3949ca9d2c8a2bb796e66/benchmark/all.sh#L56](https://github.com/stopsopa/template-engines-benchmark/blob/8239c5fd141810c995e3949ca9d2c8a2bb796e66/benchmark/all.sh#L56)
->
+> See the code here: [lodash/template.js](https://github.com/stopsopa/template-engines-benchmark/blob/8239c5fd141810c995e3949ca9d2c8a2bb796e66/benchmark/all.sh#L56)
 
-and that will surround our compiled code with 
+This surrounds the compiled code with a `with` block:
 
 ```js
-
 with (obj) {
-    ... our template code ...
+    // ... our template code ...
 }
-
 ```
 
->
 > [!NOTE]
-> More about [with](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with)
->
+> Read more about the [with statement on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with)
 
+Using `with` is significantly slower—up to 4.5x slower in benchmarks.
 
-which is for some reason much slower ...
+MDN clearly states that this feature is deprecated and its use is not recommended. 
 
-... up to even 4.5x slower when benchmarked.
+> [!IMPORTANT]
+> My guess is that because it is deprecated, it lacks proper JIT-level optimization, resulting in worse performance.
 
-Actually on the MDN page it is stated clarly that this feature is deprecated and it is not recommended to use.
+# Benchmark Results
 
-My gues would be that because of deprecation it lacks proper optimization on the JIT level. Hence worse performance.
+See `lodash-original-noit` and `lodash-original-it` in [summary.log](summary.log), where:
 
-# benchmark results
-
-See `lodash-original-noit` and `lodash-original-it`
-
-[summary.log](summary.log)
-
-where: 
-
-- `lodash-original-noit` is use of `_.template('our template')`
-- `lodash-original-it` is use of `_.template('our template', {variable: 'data'})` - with `variable`
-
-
-
+- `lodash-original-noit`: uses `_.template('our template')`
+- `lodash-original-it`: uses `_.template('our template', {variable: 'data'})` (benchmarking the `variable` option)
