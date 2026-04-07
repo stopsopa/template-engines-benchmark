@@ -15,6 +15,8 @@ _.template('our template', {variable: 'data'})
 
 gives the biggest performance gain of all the things I've tried.
 
+When this option is enabled, `lodash/template` consistently ranks at or near the top of the benchmark, delivering top-tier performance.
+
 Doing:
 
 ```js
@@ -43,7 +45,7 @@ with (obj) {
 > [!NOTE]
 > Read more about the [with statement on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with)
 
-Using `with` is significantly slower—up to 4.5x slower in benchmarks.
+Using `with` is significantly slower—more than 3.5x slower in benchmarks.
 
 MDN clearly states that this feature is deprecated and its use is not recommended. 
 
@@ -54,5 +56,5 @@ MDN clearly states that this feature is deprecated and its use is not recommende
 
 See `lodash-original-noit` and `lodash-original-it` in [summary.log](summary.log), where:
 
-- `lodash-original-noit`: uses `_.template('our template')`
-- `lodash-original-it`: uses `_.template('our template', {variable: 'data'})` (benchmarking the `variable` option)
+- `lodash-original-noit`: uses `_.template('our template')` -> [template](/benchmark/lodash/bench-template.html)
+- `lodash-original-it`: uses `_.template('our template', {variable: 'd'})` (benchmarking the `variable` option) -> [template](/benchmark/lodash/bench-template.it.html)
