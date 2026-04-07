@@ -7,7 +7,7 @@ see benchmark/all.sh for how to run the benchmark
 
 # conclusion
 
-It seems specifying
+It seems specifying `variable` option in `_.template`
 
 ```js
 
@@ -15,7 +15,7 @@ _.template('our template', {variable: 'data'})
 
 ```
 
-gives bigger performance gain
+gives biggest performance gain from all things I've tried.
 
 
 
@@ -61,12 +61,24 @@ with (obj) {
 >
 
 
-which is for some reason much slower
+which is for some reason much slower ...
 
-up to even 4.5x slower
+... up to even 4.5x slower when benchmarked.
 
-Actually on the MDN page it is stated clarly that this feature is deprecated and it is not recommended to use it.
+Actually on the MDN page it is stated clarly that this feature is deprecated and it is not recommended to use.
 
-Probably because of that it lacks proper optimization on the JIT level. Hence worse performance.
+My gues would be that because of deprecation it lacks proper optimization on the JIT level. Hence worse performance.
+
+# benchmark results
+
+See `lodash-original-noit` and `lodash-original-it`
+
+[summary.log](summary.log)
+
+where: 
+
+- `lodash-original-noit` is use of `_.template('our template')`
+- `lodash-original-it` is use of `_.template('our template', {variable: 'data'})` - with `variable`
+
 
 
