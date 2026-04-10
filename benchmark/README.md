@@ -23,7 +23,7 @@ Doing:
 _.template('our template')
 ```
 
-will cause the template compiler to enter this `if` statement:
+will cause the template compiler to enter this [if](https://github.com/lodash/lodash/blob/4.18.1/dist/lodash.js#L14959) statement:
 
 ```js
 if (!variable) {
